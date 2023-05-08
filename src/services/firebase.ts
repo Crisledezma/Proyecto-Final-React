@@ -8,23 +8,13 @@ import {
 } from "firebase/firestore";
 import { IMovie } from "@/contexts/peliculas-context";
 import { User } from "firebase/auth";
-import React, { useEffect } from "react";
-import { useFirebaseAuth } from "@/contexts/firebase-auth-context";
 
-// export const saveFavoriteMovie = async (movie: IMovie, firebaseUser: User) => {
-//   try {
-//     const docRef = await addDoc(collection(getFirestore(), "movies"), {
-//       userId: firebaseUser.uid,
-//       ...movie,
-//     });
-
-//     console.log("Document written with ID: ", docRef.id);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+export const alertTrigger = () => {
+  const popup = window.alert("El elemento ya existe en tu lista de favoritos");
+};
 
 export const saveFavoriteMovie = async (movie: IMovie, firebaseUser: User) => {
+  
   try {
     const moviesCollection = collection(getFirestore(), "movies");
     const querySnapshot = await getDocs(
@@ -32,8 +22,8 @@ export const saveFavoriteMovie = async (movie: IMovie, firebaseUser: User) => {
     );
 
     if (querySnapshot.size > 0) {
-      // El elemento ya existe en la base de datos, no se hace nada
-      console.log("El elemento ya existe en la base de datos");
+      // El elemento ya existe en la base de datos, no se guarda y manda una alerta
+      alertTrigger();
       return;
     }
 
@@ -47,6 +37,7 @@ export const saveFavoriteMovie = async (movie: IMovie, firebaseUser: User) => {
     console.error(error);
   }
 };
+
 
 export const getMovies = async (firebaseUser: User) => {
   const firebaseQuery = query(

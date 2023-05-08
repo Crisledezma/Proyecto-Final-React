@@ -1,10 +1,11 @@
 import { ProtectedPage } from '@/components/layouts/ProtectedPage'
 import { usePeliculasContext } from '../contexts/peliculas-context';
 import { useFirebaseAuth } from "@/contexts/firebase-auth-context";
-import { saveFavoriteMovie } from '@/services/firebase';
-import { Card, CardMedia } from "@mui/material";
+import { saveFavoriteMovie, alertTrigger } from '@/services/firebase';
+import { Alert, Card, CardMedia } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import ResponsiveAppBar from '@/components/molecules/AppBar';
+import React from 'react';
 
 export default function Home() {
   const {popularMovies} = usePeliculasContext();
