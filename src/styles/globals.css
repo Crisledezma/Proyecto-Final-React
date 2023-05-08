@@ -18,10 +18,24 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  height: 100%;
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+.main-wrapper {
+  background-image: url('https://wallpapercave.com/wp/wp5525373.jpg');
+  z-index: 1;
+  width: 100%;
+}
+.login-container {
+  background-color: white;
+  z-index: 10;
+}
+.input {
+  margin-bottom: 20px;
 }

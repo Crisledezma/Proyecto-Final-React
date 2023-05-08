@@ -1,13 +1,14 @@
 import { ProtectedPage } from '@/components/layouts/ProtectedPage'
-import { usePeliculasContext } from '../contexts/peliculas-context';
 import { useFirebaseAuth } from "@/contexts/firebase-auth-context";
 import { saveFavoriteMovie } from '@/services/firebase';
 import { Card, CardMedia } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import ResponsiveAppBar from '@/components/molecules/AppBar';
+import { useFavoritosContext } from '@/contexts/favoritos-context';
 
-export default function Home() {
-  const {popularMovies} = usePeliculasContext();
+export default function Favoritos() {
+  const { favoriteMovies } = useFavoritosContext();
+  console.log('favoriteMovies en favoritos', favoriteMovies);
   const { user } = useFirebaseAuth();
   
   return (
@@ -16,9 +17,9 @@ export default function Home() {
       <main
         className={`flex min-h-screen flex-col items-center justify-between px-24 mt-24`}
       >
-        <h1 className='text-4xl font-bold text-center text-red-500'>Últimos Estrenos</h1>
+        <h1 className='text-4xl font-bold text-center text-red-500'>Películas Favoritas</h1>
         <ul className="flex flex-wrap justify-center">
-          {popularMovies.map((movie) => (
+          {favoriteMovies.map((movie) => (
             <li key={movie.id}>
               <Card sx={{ maxWidth: 200 }} className="m-5 text-center padding">
                 <CardMedia
