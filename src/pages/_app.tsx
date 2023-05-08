@@ -1,3 +1,4 @@
+// import { FavoritosContextProvider } from '@/contexts/favoritos-context'
 import { FirebaseAuthContextProvider } from '@/contexts/firebase-auth-context'
 import { FirebaseContextProvider } from '@/contexts/firebase-context'
 import { PeliculasContextProvider } from '@/contexts/peliculas-context'
@@ -8,9 +9,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
   <FirebaseContextProvider>
       <FirebaseAuthContextProvider>
-        <PeliculasContextProvider>
-          <Component {...pageProps} />
-        </PeliculasContextProvider>
+        {/* <FavoritosContextProvider> */}
+          <PeliculasContextProvider>
+            <Component {...pageProps} />
+          </PeliculasContextProvider>
+      {/* </FavoritosContextProvider> */}
     </FirebaseAuthContextProvider>
   </FirebaseContextProvider>
   )

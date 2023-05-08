@@ -20,13 +20,13 @@ export default function Home() {
         <ul className="flex flex-wrap justify-center">
           {popularMovies.map((movie) => (
             <li key={movie.id}>
-              <Card sx={{ maxWidth: 200 }} className="m-5 text-center padding">
+              <Card sx={{ maxWidth: 250 }} className="m-5 text-center pb-5">
                 <CardMedia
-                  sx={{ height: 250, width: 200 }}
+                  sx={{ height: 400, width: 250 }}
                   image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   title={movie.title}
                 />
-                <p>{movie.title}</p>
+                <p className='py-4 text-blue-600 font-semibold'>{movie.title}</p>
                 <LoadingButton
                   className="m-5"
                   variant='outlined'

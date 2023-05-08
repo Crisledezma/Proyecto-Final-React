@@ -87,9 +87,16 @@ export const FirebaseAuthContextProvider: React.FC<React.PropsWithChildren> = ({
   );
 
   return (
-    <FirebaseAuthContext.Provider value={contextValue}>
-      {children}
-    </FirebaseAuthContext.Provider>
+    <>
+      {user === undefined ? (
+         // Aquí se verifica si el estado está inicializado o no
+        "Cargando..."
+      ) : (
+        <FirebaseAuthContext.Provider value={contextValue}>
+          {children}
+        </FirebaseAuthContext.Provider>
+      )}
+    </>
   );
 };
 

@@ -23,6 +23,10 @@ function ResponsiveAppBar() {
   const navigateFavoritos = () => {
     navigate.push('/favoritos');
   }
+
+  const navigateIndex = () => {
+    navigate.push('/');
+  }
   
   const pages: IButtonProps[] = [
     {
@@ -30,6 +34,12 @@ function ResponsiveAppBar() {
       variant: 'text',
       color: 'inherit',
       onClick: navigateFavoritos,
+    },
+    {
+      value: 'ESTRENOS',
+      variant: 'text',
+      color: 'inherit',
+      onClick: navigateIndex,
     },
     {
       value: 'SALIR',

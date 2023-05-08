@@ -9,10 +9,35 @@ import {
 import { IMovie } from "@/contexts/peliculas-context";
 import { User } from "firebase/auth";
 import React, { useEffect } from "react";
+import { useFirebaseAuth } from "@/contexts/firebase-auth-context";
+
+// export const saveFavoriteMovie = async (movie: IMovie, firebaseUser: User) => {
+//   try {
+//     const docRef = await addDoc(collection(getFirestore(), "movies"), {
+//       userId: firebaseUser.uid,
+//       ...movie,
+//     });
+
+//     console.log("Document written with ID: ", docRef.id);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 export const saveFavoriteMovie = async (movie: IMovie, firebaseUser: User) => {
   try {
-    const docRef = await addDoc(collection(getFirestore(), "movies"), {
+    const moviesCollection = collection(getFirestore(), "movies");
+    const querySnapshot = await getDocs(
+      query(moviesCollection, where("id", "==", movie.id), where("userId", "==", firebaseUser.uid))
+    );
+
+    if (querySnapshot.size > 0) {
+      // El elemento ya existe en la base de datos, no se hace nada
+      console.log("El elemento ya existe en la base de datos");
+      return;
+    }
+
+    const docRef = await addDoc(moviesCollection, {
       userId: firebaseUser.uid,
       ...movie,
     });
@@ -23,38 +48,20 @@ export const saveFavoriteMovie = async (movie: IMovie, firebaseUser: User) => {
   }
 };
 
+export const getMovies = async (firebaseUser: User) => {
+  const firebaseQuery = query(
+    collection(getFirestore(), "movies"),
+    where("userId", "==", firebaseUser.uid)
+  );
 
-export const getMovies = () => {
-  const [favoriteMovies, setFavoriteMovies] = React.useState<IMovie[]>([]);
-  try {
-    useEffect(() => {
-      const querySnapshot = getDocs(collection(getFirestore(), 'movies'));
-      const favoritas: any[] = [];
-      querySnapshot.forEach((favorita) => {
-        favoritas.push({...favorita.data, id:favorita.id})
-      })
-      console.log('Favoritas en firebase.ts',favoritas);
-      setFavoriteMovies(favoritas);
-    }, [])
-  } catch (error) {
-    console.error(error);
-  }
+  const querySnapshot = await getDocs(firebaseQuery);
+  const movies: IMovie[] = [];
+
+  querySnapshot.forEach((doc) => {
+    movies.push(doc.data() as IMovie);
+  });
+
+  console.log(movies);
+  return movies;
 };
-getMovies();
 
-// export const getMovies = async (firebaseUser: User) => {
-//   const firebaseQuery = query(
-//     collection(getFirestore(), "movies"),
-//     where("userId", "==", firebaseUser.uid)
-//   );
-
-//   const querySnapshot = await getDocs(firebaseQuery);
-//   const movies: IMovie[] = [];
-
-//   querySnapshot.forEach((doc) => {
-//     movies.push(doc.data() as IMovie);
-//   });
-
-//   console.log(movies);
-//   return movies;
-// };
