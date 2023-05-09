@@ -25,7 +25,6 @@ export const FirebaseAuthContextProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   const [user, setUser] = React.useState<User | undefined>(undefined);
-
   const login = React.useCallback(async (email: string, password: string) => {
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -36,7 +35,7 @@ export const FirebaseAuthContextProvider: React.FC<React.PropsWithChildren> = ({
       setUser(userCredential.user);
     } catch (error) {
       console.error(error);
-    }
+    };
   }, []);
 
   const register = React.useCallback(
@@ -51,9 +50,7 @@ export const FirebaseAuthContextProvider: React.FC<React.PropsWithChildren> = ({
       } catch (error) {
         console.error(error);
       }
-    },
-    []
-  );
+    }, []);
 
   const logout = React.useCallback(async () => {
     try {
@@ -87,16 +84,9 @@ export const FirebaseAuthContextProvider: React.FC<React.PropsWithChildren> = ({
   );
 
   return (
-    <>
-      {user === undefined ? (
-         // Aquí se verifica si el estado está inicializado o no
-        "Cargando..."
-      ) : (
-        <FirebaseAuthContext.Provider value={contextValue}>
-          {children}
-        </FirebaseAuthContext.Provider>
-      )}
-    </>
+    <FirebaseAuthContext.Provider value={contextValue}>
+      {children}
+    </FirebaseAuthContext.Provider>
   );
 };
 

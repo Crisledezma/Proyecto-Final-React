@@ -1,13 +1,20 @@
 import { ProtectedPage } from '@/components/layouts/ProtectedPage'
 import { usePeliculasContext } from '../contexts/peliculas-context';
 import { useFirebaseAuth } from "@/contexts/firebase-auth-context";
-import { saveFavoriteMovie, alertTrigger } from '@/services/firebase';
-import { Alert, Card, CardMedia } from "@mui/material";
+import { saveFavoriteMovie } from '@/services/firebase';
+import { Card, CardMedia } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import ResponsiveAppBar from '@/components/molecules/AppBar';
 import React from 'react';
+import { ButtonElement } from '@/components/atoms/Button';
+import { useRouter } from "next/navigation";
+
 
 export default function Home() {
+  const router = useRouter();
+  const navigateById = (id: number) => {
+    router.push(`/estrenos/${id}`);
+  }
   const {popularMovies} = usePeliculasContext();
   const { user } = useFirebaseAuth();
   
@@ -36,6 +43,11 @@ export default function Home() {
                 >
                   + Favoritos
                 </LoadingButton>
+                <ButtonElement
+                  value='Ver más'
+                  variant='outlined'
+                  onClick={() => navigateById(movie.id)}
+                />
               </Card>
             </li>
           ))}

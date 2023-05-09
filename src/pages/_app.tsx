@@ -1,4 +1,3 @@
-// import { FavoritosContextProvider } from '@/contexts/favoritos-context'
 import { FirebaseAuthContextProvider } from '@/contexts/firebase-auth-context'
 import { FirebaseContextProvider } from '@/contexts/firebase-context'
 import { PeliculasContextProvider } from '@/contexts/peliculas-context'
@@ -8,12 +7,10 @@ import type { AppProps } from 'next/app'
 export default function App({ Component, pageProps }: AppProps) {
   return (
   <FirebaseContextProvider>
-      <FirebaseAuthContextProvider>
-        {/* <FavoritosContextProvider> */}
-          <PeliculasContextProvider>
-            <Component {...pageProps} />
-          </PeliculasContextProvider>
-      {/* </FavoritosContextProvider> */}
+    <FirebaseAuthContextProvider>
+      <PeliculasContextProvider>
+        <Component {...pageProps} />
+      </PeliculasContextProvider>
     </FirebaseAuthContextProvider>
   </FirebaseContextProvider>
   )

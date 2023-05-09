@@ -1,27 +1,38 @@
 import { ProtectedPage } from '@/components/layouts/ProtectedPage'
 import { useFirebaseAuth } from "@/contexts/firebase-auth-context";
-import { getMovies } from '@/services/firebase';
+import { getMovies, removeMovie } from '@/services/firebase';
 import ResponsiveAppBar from '@/components/molecules/AppBar';
 import { useState } from 'react';
 import { IMovie } from '@/contexts/peliculas-context';
 import React from 'react';
 import { Card, CardMedia } from '@mui/material';
+import { ButtonElement } from '@/components/atoms/Button';
+import { useRouter } from "next/navigation";
 
-export default function Favoritos() {
+const Favoritos = () => {
   const { user } = useFirebaseAuth();
   const [favorites, setFavorites] = useState<IMovie[]>([]);
+  const router = useRouter();
 
   React.useEffect(() => {
-    const fetchFavorites = async () => {
+    const traerFavoritos = async () => {
       if (user) {
-        console.log('Getting Movies...');
         const movies = await getMovies(user);
-        console.log(movies);
         setFavorites(movies);
       }
     };
-    fetchFavorites();
-  }, [user]);
+    traerFavoritos();
+  }, [favorites]);
+
+  const eliminarFavorito = async (id: number) => {
+    if (user) {
+      await removeMovie(user, id);
+    }
+  };
+
+  const navigateById = (id: number) => {
+    router.push(`/estrenos/${id}`);
+  }
   
   return (
     <ProtectedPage>
@@ -40,6 +51,18 @@ export default function Favoritos() {
                   title={favorite.title}
                 />
                 <p className='py-4 text-blue-600 font-semibold'>{favorite.title}</p>
+                <ButtonElement
+                  className='mb-4'
+                  value='Eliminar de favoritos'
+                  variant='contained'
+                  onClick={() => eliminarFavorito(favorite.id)}
+                  color='error'
+                />
+                <ButtonElement
+                  value='Ver más'
+                  variant='outlined'
+                  onClick={() => navigateById(favorite.id)}
+                />
               </Card>
             </li>
           ))}
@@ -48,3 +71,5 @@ export default function Favoritos() {
     </ProtectedPage>
   )
 }
+
+export default Favoritos;

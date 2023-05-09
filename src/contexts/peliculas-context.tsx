@@ -2,8 +2,6 @@ import axios from 'axios';
 import React from 'react';
 
 const MOVIES_DB_API_KEY = 'ea51fa5a31099013c2cb7cb6ba36876f';
-const ACCOUNT_ID = 14946988;
-const MOVIES_DB_API_KEY_V4_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYTUxZmE1YTMxMDk5MDEzYzJjYjdjYjZiYTM2ODc2ZiIsInN1YiI6IjYzMmYyMmI0YWJkYWZjMDA4NDAzNjVjYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rkdsR4sRq5M2Pcj9JPMDH0GlvQhCgrBZED2fDDrCt0g'
 
 export interface IMovie {
   poster_path: string;
@@ -38,7 +36,6 @@ export const PeliculasContextProvider: React.FC<React.PropsWithChildren> = ({
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIES_DB_API_KEY}&language=esS&page=1`
     );
-    // console.log(response.data.results);
     setPopularMovies(response.data.results);
   }, []);
 
