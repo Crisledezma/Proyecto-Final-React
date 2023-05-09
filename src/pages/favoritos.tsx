@@ -54,7 +54,6 @@ const Favoritos = () => {
                 <ButtonElement
                   className='mb-4'
                   value='Eliminar de favoritos'
-                  variant='contained'
                   onClick={() => eliminarFavorito(favorite.id)}
                   color='error'
                 />

@@ -4,20 +4,29 @@ import React from 'react';
 const MOVIES_DB_API_KEY = 'ea51fa5a31099013c2cb7cb6ba36876f';
 
 export interface IMovie {
-  poster_path: string;
-  adult: boolean;
-  overview: string;
-  release_date: string;
-  genre_ids: number[];
-  id: number;
-  original_title: string;
+  poster_path      : string;
+  adult            : boolean;
+  overview         : string;
+  release_date     : string;
+  genre_ids        : number[];
+  id               : number;
+  original_title   : string;
   original_language: string;
-  title: string;
-  backdrop_path: string;
-  popularity: number;
-  vote_count: number;
-  video: boolean;
-  vote_average: number;
+  title            : string;
+  backdrop_path    : string;
+  popularity       : number;
+  vote_count       : number;
+  video            : boolean;
+  vote_average     : number;
+  budget           : number;
+  genres           : Genre[];
+  tagline          : string;
+  homepage         : string;
+}
+
+interface Genre {
+  id: number;
+  name: string;
 }
 
 interface PeliculasContextProps {
