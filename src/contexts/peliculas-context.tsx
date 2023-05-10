@@ -32,7 +32,7 @@ interface Genre {
 export interface IComment {
   movieId: string;
   comment: string;
-  id?: string;
+  id?: number;
 }
 
 interface PeliculasContextProps {

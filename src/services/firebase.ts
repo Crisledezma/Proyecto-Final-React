@@ -85,10 +85,11 @@ export const removeMovie = async (firebaseUser: User, movieId: number): Promise<
   }
 };
 // Agregar comentario
-export const setComment = async (comment: string, movieId: string) => {
+export const setComment = async (comment: string, movieId: number, id: number) => {
   if (comment) {
     try {
       const docRef = await addDoc(collection(getFirestore(), "comments"), {
+        id: id,
         movieId: movieId,
         comment: comment,
       });

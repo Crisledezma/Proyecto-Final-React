@@ -18,7 +18,7 @@ export const EstrenoPorId = () => {
   const { id } = router.query;
 
   // Traer comentarios
-  React.useEffect(() => {
+  useEffect(() => {
     const traerComentarios = async () => {
       if (peli) {
         const comentarios = await getComments(peli);
@@ -30,9 +30,10 @@ export const EstrenoPorId = () => {
   // Enviar comentarios
   const handleSendComment = async () => {
     if (commentValue && peli) {
-      await setComment(commentValue as string, peli.id as unknown as string );
+      const id = Math.random();
+      await setComment(commentValue as string, peli.id, id);
       const newComments = [...comments];
-      newComments.unshift({ comment: commentValue,  movieId: id as string });
+      newComments.unshift({ comment: commentValue,  movieId: peli.id as unknown as string, id });
       setComments(newComments);
       setCommentValue('');
     }
@@ -45,7 +46,7 @@ export const EstrenoPorId = () => {
       setRating(rate);
     }
   };
-  React.useEffect(() => {
+  useEffect(() => {
     const traerRatings = async () => {
       if (peli) {
         const rate = await getRating(peli.id)
@@ -102,7 +103,7 @@ export const EstrenoPorId = () => {
               onClick={() => navigateWebPage(peli.homepage)}
             /></p>}
           <br />
-          <Rating initialValue={rating} onClick={handleRating} />
+          <Rating transition initialValue={rating} onClick={handleRating} />
           <span className='ms-5'>VOTAR</span>
           <br />
           <TextareaAutosize
