@@ -128,11 +128,10 @@ export const getRating = async (movieId: number): Promise<any> => {
   try {
     const firebaseQuery = query(
       collection(getFirestore(), "ratings"),
-      where("movieId", "==", movieId.toString())
+      where("movieId", "==", movieId)
     );
     const querySnapshot = await getDocs(firebaseQuery);
-    const rating = querySnapshot.docs[0];
-    console.log(rating)
+    const rating = querySnapshot.docs.map(data => data.get('rate'));
     return rating;
   } catch (error) {
     console.error(error);

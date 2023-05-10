@@ -40,15 +40,20 @@ export const EstrenoPorId = () => {
   // Enviar rating
   const [rating, setRating] = useState<number>(0)
   const handleRating = async (rate: number) => {
-    if (rate && peli) {
-      setRating(rate);
+    if (peli) {
       await setRates(rate, peli.id as unknown as string);
+      setRating(rate);
     }
   };
   React.useEffect(() => {
-    getRating(rating);
-    console.log(rating);
-  },[rating])
+    const traerRatings = async () => {
+      if (peli) {
+        const rate = await getRating(peli.id)
+        setRating(rate);
+      }
+    }
+    traerRatings();
+  },[peli])
   // Navegación
   const goHome = () => {
     router.push('/');
@@ -63,6 +68,10 @@ export const EstrenoPorId = () => {
         `https://api.themoviedb.org/3/movie/${id}?api_key=${MOVIES_DB_API_KEY}&append_to_response=videos`
       );
       setPeli(response.data);
+      if (peli) {
+        const rate = await getRating(peli.id)
+        setRating(rate);
+      }
     }
   }, [id]);
 
