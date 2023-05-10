@@ -56,7 +56,11 @@ body {
   flex-wrap: nowrap;
 }
 
-.left-container {
+.resenas-container {
+  margin-top: 50px;
+  background-color: #FEF;
+  min-height: 200px;
+  padding: 0 50px;
 }
 
 h1 {
@@ -85,7 +89,7 @@ h1 {
 	margin-bottom: 10px;
 }
 
-svg {
+.star-svg {
   display: inline;
 }
 @media (max-width: 719px) {

@@ -26,13 +26,13 @@ export const EstrenoPorId = () => {
       }
     };
     traerComentarios();
-    }, [peli]);
+  }, [peli]);
   // Enviar comentarios
   const handleSendComment = async () => {
     if (commentValue && peli) {
       await setComment(commentValue as string, peli.id as unknown as string );
       const newComments = [...comments];
-      newComments.push({ comment: commentValue,  movieId: id as string });
+      newComments.unshift({ comment: commentValue,  movieId: id as string });
       setComments(newComments);
       setCommentValue('');
     }
@@ -129,8 +129,10 @@ export const EstrenoPorId = () => {
           />
         </div>
       </div>
-      <h2 className='text-center font-bold mt-12'>RESEÑAS</h2>
-      {comments.map((comment) => (<li className='my-6' key={comment.id}>{ comment.comment }</li>))}
+      <div className='resenas-container'>
+        <h2 className='text-center font-bold mt-12'>RESEÑAS</h2>
+        {comments.map((comment) => (<li className='my-6' key={comment.id}>{ comment.comment }</li>))}
+      </div>
     </div>
   )
 };

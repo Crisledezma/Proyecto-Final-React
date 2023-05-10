@@ -53,12 +53,12 @@ export const getComments = async (movie: IMovie) => {
   try {
     const firebaseQuery = query(
         collection(getFirestore(), "comments"),
-        where("movieId", "==", movie.id.toString())
+        where("movieId", "==", movie.id)
       );
       const querySnapshot = await getDocs(firebaseQuery);
       const comments: IComment[] = [];
       querySnapshot.forEach((doc) => {
-      comments.push(doc.data() as IComment);
+      comments.unshift(doc.data() as IComment);
     });
     return comments;
   } catch (error) {
