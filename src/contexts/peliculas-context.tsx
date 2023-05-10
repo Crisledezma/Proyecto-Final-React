@@ -29,6 +29,12 @@ interface Genre {
   name: string;
 }
 
+export interface IComment {
+  movieId: string;
+  comment: string;
+  id?: string;
+}
+
 interface PeliculasContextProps {
   popularMovies: IMovie[];
 }

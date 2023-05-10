@@ -39,15 +39,18 @@ body {
 .input {
   margin-bottom: 20px;
 }
-
-.contenedor {
-	max-width: 960px;
+.main-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 960px;
   min-height: 100vh;
-	margin: 0 auto;
-	padding: 40px;
-	background-color: #fff;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-	border-radius: 5px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+.contenedor {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
